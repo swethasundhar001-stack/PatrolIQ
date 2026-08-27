@@ -1,0 +1,37 @@
+PATROLIQ - EDA SUMMARY
+============================================================
+
+TOP 10 CRIME TYPES
+----------------------------------------
+primary_type
+THEFT                  114491
+BATTERY                 90215
+CRIMINAL DAMAGE         55068
+ASSAULT                 45157
+MOTOR VEHICLE THEFT     38401
+OTHER OFFENSE           34143
+DECEPTIVE PRACTICE      30575
+BURGLARY                22760
+NARCOTICS               14236
+ROBBERY                 12921
+
+YEAR-WISE CRIME COUNT
+----------------------------------------
+year
+2024    118732
+2025    237659
+2026    143609
+
+TOP 10 CRIME LOCATIONS
+----------------------------------------
+location_description
+STREET                                    134464
+APARTMENT                                  97383
+RESIDENCE                                  59370
+SIDEWALK                                   25664
+SMALL RETAIL STORE                         18471
+PARKING LOT / GARAGE (NON RESIDENTIAL)     17627
+DEPARTMENT STORE                           11448
+RESTAURANT                                 11311
+ALLEY                                      10915
+OTHER (SPECIFY)                             8665
