@@ -2,11 +2,11 @@
 
 ## AI-Powered Crime Prediction System
 
-PatrolIQ is a machine learning-based crime prediction system that predicts the most likely type of crime using historical crime data.
+PatrolIQ is a machine learning-based crime prediction system that analyzes historical crime data and predicts the most likely crime type based on time, location, and crime-related features.
 
 ## 🎯 Project Objective
 
-The main objective of PatrolIQ is to analyze historical crime patterns and use machine learning to predict the most likely crime type based on factors such as time, location, and crime-related information.
+The main objective of PatrolIQ is to identify patterns in historical crime data and build a machine learning model that can predict the most likely crime category for given crime-related inputs.
 
 ## 🛠️ Technologies Used
 
@@ -31,16 +31,70 @@ The main objective of PatrolIQ is to analyze historical crime patterns and use m
 
 ## 🤖 Machine Learning
 
-The trained machine learning model is used to predict the most likely crime type from the given input features.
+The system uses a trained machine learning classification model to predict the most likely crime type.
 
-## 🚀 Application
+The model uses features including:
 
-The Streamlit application allows users to enter crime-related information and receive a predicted crime type.
+- Crime Year
+- Crime Month
+- Crime Day
+- Crime Hour
+- Day of Week
+- Weekend Indicator
+- Crime Severity
+- Location Availability
+- Latitude
+- Longitude
+- Beat
+- District
+- Ward
+- Community Area
+- Arrest Indicator
+- Domestic Case Indicator
 
-## 📌 Prediction
+## 🚀 Streamlit Application
 
-The system takes crime-related features as input and predicts the most likely crime category.
+PatrolIQ provides an interactive Streamlit web application where users can enter crime-related information and receive a predicted crime type.
 
-## 👩‍💻 Author
+### Application Features
 
-Swetha
+- User-friendly input interface
+- Crime prediction using the trained ML model
+- Encoded crime label conversion
+- Prediction result display
+- Input data preview
+
+## 📁 Project Structure
+
+```text
+PatrolIQ/
+│
+├── data/
+│   ├── raw/
+│   ├── cleaned/
+│   └── processed/
+│
+├── models/
+│   ├── crime_label_encoder.pkl
+│   ├── crime_prediction_model.pkl
+│   └── feature_info.pkl
+│
+├── notebooks/
+│
+├── reports/
+│   └── figures/
+│
+├── src/
+│   ├── download_data.py
+│   ├── 01_load_data.py
+│   ├── 02_clean_data.py
+│   ├── 03_eda.py
+│   ├── 04_visualization.py
+│   ├── 05_feature_engineering.py
+│   ├── 06_model_training.py
+│   ├── 07_model_testing.py
+│   └── 08_app.py
+│
+├── requirements.txt
+├── README.md
+└── .gitignore
