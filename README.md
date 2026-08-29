@@ -6,7 +6,7 @@ PatrolIQ is a machine learning-based crime prediction system that analyzes histo
 
 ## 🎯 Project Objective
 
-The main objective of PatrolIQ is to identify patterns in historical crime data and build a machine learning model that can predict the most likely crime category for given crime-related inputs.
+The main objective of PatrolIQ is to identify patterns in historical crime data and build a machine learning classification model that predicts the most likely crime category for given crime-related inputs.
 
 ## 🛠️ Technologies Used
 
@@ -33,7 +33,7 @@ The main objective of PatrolIQ is to identify patterns in historical crime data 
 
 The system uses a trained machine learning classification model to predict the most likely crime type.
 
-The model uses features including:
+### Features Used
 
 - Crime Year
 - Crime Month
@@ -60,7 +60,7 @@ PatrolIQ provides an interactive Streamlit web application where users can enter
 
 - User-friendly input interface
 - Crime prediction using the trained ML model
-- Encoded crime label conversion
+- Crime label decoding
 - Prediction result display
 - Input data preview
 
@@ -78,8 +78,6 @@ PatrolIQ/
 │   ├── crime_label_encoder.pkl
 │   ├── crime_prediction_model.pkl
 │   └── feature_info.pkl
-│
-├── notebooks/
 │
 ├── reports/
 │   └── figures/
