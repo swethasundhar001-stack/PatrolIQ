@@ -127,8 +127,8 @@ print(f"Testing rows : {len(X_test):,}")
 print("\nTraining Random Forest...")
 
 model = RandomForestClassifier(
-    n_estimators=100,
-    max_depth=20,
+    n_estimators=20,
+    max_depth=10,
     random_state=42,
     n_jobs=-1
 )
