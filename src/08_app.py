@@ -29,7 +29,7 @@ encoder = joblib.load(ENCODER_FILE)
 # Title
 # --------------------------------------------------
 
-st.title("🚔 PatrolIQ")
+st.title("🚔 PatrolIQ - Crime Prediction")
 st.subheader("AI-Powered Crime Prediction System")
 
 st.write(
