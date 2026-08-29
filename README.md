@@ -96,7 +96,7 @@ PatrolIQ/
 ├── requirements.txt
 ├── README.md
 └── .gitignore
-
+```
 
 ## 📊 Model Performance
 
@@ -115,3 +115,18 @@ The trained model can be tested using:
 
 ```bash
 python src/07_model_testing.py
+```
+
+## ▶️ Run the Streamlit Application
+
+To run the PatrolIQ web application:
+
+```bash
+streamlit run src/08_app.py
+```
+
+The application allows users to enter crime-related features and receive a predicted crime type.
+
+## 📌 Project Status
+
+PatrolIQ is a completed machine learning project with data processing, visualization, feature engineering, model training, model testing, and Streamlit deployment components.
