@@ -1,7 +1,9 @@
-import os
 import joblib
 import pandas as pd
-from sklearn.metrics import classification_report, accuracy_score
+
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, classification_report
+
 
 # --------------------------------------------------
 # File paths
@@ -14,12 +16,17 @@ DATA_FILE = "data/processed/crime_features.csv"
 
 
 # --------------------------------------------------
-# Load saved files
+# Start
 # --------------------------------------------------
 
 print("=" * 60)
 print("MODEL TESTING STARTED")
 print("=" * 60)
+
+
+# --------------------------------------------------
+# Load saved files
+# --------------------------------------------------
 
 model = joblib.load(MODEL_FILE)
 encoder = joblib.load(ENCODER_FILE)
@@ -36,80 +43,111 @@ print(f"Dataset columns : {len(df.columns)}")
 
 
 # --------------------------------------------------
-# Display feature information
+# Get feature information
 # --------------------------------------------------
 
-print("\nFeatures used by model:")
-
 if isinstance(feature_info, dict):
-    features = feature_info.get("features", feature_info.get("feature_columns", []))
+    features = feature_info.get(
+        "features",
+        feature_info.get("feature_columns", [])
+    )
 else:
     features = feature_info
 
+
+print("\nFeatures used by model:")
 print(features)
 
 
-print("\n" + "=" * 60)
-print("MODEL TESTING SETUP COMPLETED")
-print("=" * 60)
-
 # --------------------------------------------------
-# Model Information
+# Prepare data
 # --------------------------------------------------
 
-print("\n" + "=" * 60)
-print("MODEL INFORMATION")
-print("=" * 60)
+df = df.dropna(subset=["primary_type"])
 
-print(f"Model type : {type(model).__name__}")
-
-# Check whether model has feature information
-if hasattr(model, "n_features_in_"):
-    print(f"Expected features : {model.n_features_in_}")
-
-# Check model classes
-if hasattr(model, "classes_"):
-    print(f"Number of classes : {len(model.classes_)}")
-    print(f"Classes : {model.classes_}")
-
-print("\nDataset columns:")
-print(df.columns.tolist())
-
-print("\n" + "=" * 60)
-print("MODEL INFORMATION CHECK COMPLETED")
-print("=" * 60)
-
-# --------------------------------------------------
-# Actual Model Prediction Test
-# --------------------------------------------------
-
-print("\n" + "=" * 60)
-print("ACTUAL MODEL PREDICTION TEST")
-print("=" * 60)
-
-# Features used during training
 X = df[features].copy()
+y = df["primary_type"].copy()
 
-# Target column
-y = df["primary_type"]
 
-print(f"Test rows : {len(X):,}")
-print(f"Input features : {X.shape[1]}")
+# --------------------------------------------------
+# Convert boolean columns
+# --------------------------------------------------
 
-# Make predictions
-predictions = model.predict(X)
+for col in X.columns:
+    if X[col].dtype == "bool":
+        X[col] = X[col].astype(int)
 
-# Convert encoded predictions back to crime names
-predicted_labels = encoder.inverse_transform(predictions.astype(int))
+
+# --------------------------------------------------
+# Handle missing values
+# --------------------------------------------------
+
+X = X.fillna(0)
+
+
+# --------------------------------------------------
+# Encode target
+# --------------------------------------------------
+
+y_encoded = encoder.transform(y)
+
+
+# --------------------------------------------------
+# Same Train/Test Split used during training
+# --------------------------------------------------
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y_encoded,
+    test_size=0.20,
+    random_state=42,
+    stratify=y_encoded
+)
+
+
+print(f"\nTraining rows: {len(X_train):,}")
+print(f"Testing rows : {len(X_test):,}")
+
+
+# --------------------------------------------------
+# Model Prediction
+# --------------------------------------------------
+
+print("\nRunning predictions...")
+
+y_pred = model.predict(X_test)
+
 
 # --------------------------------------------------
 # Accuracy
 # --------------------------------------------------
 
-accuracy = accuracy_score(y, predicted_labels)
+accuracy = accuracy_score(y_test, y_pred)
 
-print(f"\nModel Accuracy : {accuracy:.4f}")
-print(f"Model Accuracy : {accuracy * 100:.2f}%")
+
+print("\n" + "=" * 60)
+print("MODEL EVALUATION")
+print("=" * 60)
+
+print(f"Test Accuracy : {accuracy:.4f}")
+print(f"Test Accuracy : {accuracy * 100:.2f}%")
+
+
+# --------------------------------------------------
+# Classification Report
+# --------------------------------------------------
+
+print("\nClassification Report:")
+
+print(
+    classification_report(
+        y_test,
+        y_pred,
+        target_names=encoder.classes_,
+        zero_division=0
+    )
+)
+
 
 # --------------------------------------------------
 # Sample Predictions
@@ -119,13 +157,21 @@ print("\n" + "=" * 60)
 print("SAMPLE PREDICTIONS")
 print("=" * 60)
 
+actual_labels = encoder.inverse_transform(y_test)
+predicted_labels = encoder.inverse_transform(y_pred)
+
 sample = pd.DataFrame({
-    "Actual Crime": y.iloc[:20].values,
+    "Actual Crime": actual_labels[:20],
     "Predicted Crime": predicted_labels[:20]
 })
 
 print(sample.to_string(index=False))
 
+
+# --------------------------------------------------
+# Completed
+# --------------------------------------------------
+
 print("\n" + "=" * 60)
-print("MODEL PREDICTION TEST COMPLETED")
+print("MODEL TESTING COMPLETED")
 print("=" * 60)
