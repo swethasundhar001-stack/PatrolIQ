@@ -96,3 +96,20 @@ PatrolIQ/
 ├── requirements.txt
 ├── README.md
 └── .gitignore
+## 📊 Model Performance
+
+The Random Forest classification model was evaluated using a separate test dataset.
+
+- Model: Random Forest Classifier
+- Test Split: 20%
+- Random State: 42
+- Test Accuracy: 45.43%
+
+The model was evaluated using accuracy, precision, recall, F1-score, and classification report.
+
+## 🧪 Model Testing
+
+The trained model can be tested using:
+
+```bash
+python src/07_model_testing.py
